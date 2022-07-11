@@ -1,9 +1,10 @@
 '''
-db and collections using script from task2.1.py
+Проверка на уникальность
+в строке    if link_vac in uniq_vac_list:
+            continue
 '''
 
 import re
-from pprint import pprint
 
 import requests
 from bs4 import BeautifulSoup
@@ -46,9 +47,13 @@ for i in range(0, int(pages_to_scrap)):
         a = str((i.select('a')))
         name_vac = re.search(r'target=\"_blank\">(.*?)</a>, <', a)[1]
         link_vac = re.search(r'href=\"(\S*)\"', a)[1]
-
         info_dict['name_vac'] = name_vac
         info_dict['link_vac'] = link_vac
+        uniq_vac_list = db['vacancys'].find().distinct("link_vac")  # Проверка на уникальность
+        if link_vac in uniq_vac_list:
+            # print(f'{info_dict.get("link_vac")} already exist')
+            continue
+
         info_dict['site'] = site
         salary = re.search(r'vacancy-serp__vacancy-compensation\">(.*?)</span>', str(i))
         if salary == None:
@@ -91,10 +96,8 @@ for i in range(0, int(pages_to_scrap)):
             info_dict['salary_max'] = 'hz'
             info_dict['curancy'] = 'hz'
 
-        # vacancys_dict[str(n)] = info_dict
-        print(type(info_dict))
         vacances_collection.insert_one(info_dict)
         n += 1
 
-# vacances_collection.insert_many([vacancys_dict])
-pprint(vacances_collection.find_one())
+for i in vacances_collection.find():
+    print(i)
