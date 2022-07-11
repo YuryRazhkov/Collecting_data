@@ -33,7 +33,7 @@ headers = {
 
 n = 1
 for i in range(0, int(pages_to_scrap)):
-    info_dict = {}
+
     print(f'scrapping page {i + 1}')
     params['page'] = i
     html = requests.get(link, params=params, headers=headers)
@@ -41,6 +41,8 @@ for i in range(0, int(pages_to_scrap)):
     soup = BeautifulSoup(html.text, "html.parser")
     vac_request = soup.find_all('div', 'vacancy-serp-item-body')
     for i in vac_request:
+        info_dict = {}
+
         a = str((i.select('a')))
         name_vac = re.search(r'target=\"_blank\">(.*?)</a>, <', a)[1]
         link_vac = re.search(r'href=\"(\S*)\"', a)[1]
