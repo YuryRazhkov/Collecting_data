@@ -3,7 +3,6 @@
 в строке    if link_vac in uniq_vac_list:
             continue
 '''
-
 import re
 from pprint import pprint
 
@@ -21,7 +20,7 @@ vacancy = 'python junior developer'
 link = 'https://hh.ru/search/vacancy'
 pages_to_scrap = 5
 params = {
-    'search_field': ['name', 'description'],
+    # 'search_field': ['name', 'description'],
     'text': vacancy,
     'from': 'suggest_post',
     # 'salary': '',
@@ -105,3 +104,4 @@ for i in range(0, int(pages_to_scrap)):
 print('ALL VACANCES')
 for i in vacances_collection.find():
     print(i)
+   
