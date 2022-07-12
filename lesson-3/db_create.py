@@ -5,6 +5,7 @@
 '''
 
 import re
+from pprint import pprint
 
 import requests
 from bs4 import BeautifulSoup
@@ -22,12 +23,13 @@ pages_to_scrap = 5
 params = {
     'search_field': ['name', 'description'],
     'text': vacancy,
+    'from': 'suggest_post',
     # 'salary': '',
     # 'clusters': 'true',
     # 'ored_clusters': 'true',
     # 'enable_snippets': 'true',
 }
-
+# https://hh.ru/search/vacancy?search_field=name&search_field=company_name&search_field=description&text=python+junior+developer&from=suggest_post
 headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:69.0) Gecko/20100101 Firefox/69.0'
 }
@@ -98,6 +100,8 @@ for i in range(0, int(pages_to_scrap)):
 
         vacances_collection.insert_one(info_dict)
         n += 1
+        pprint(f'NEW VACANCE -- {info_dict}')
 
+print('ALL VACANCES')
 for i in vacances_collection.find():
     print(i)
