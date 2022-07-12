@@ -29,7 +29,7 @@ params = {
     # 'ored_clusters': 'true',
     # 'enable_snippets': 'true',
 }
-# https://hh.ru/search/vacancy?search_field=name&search_field=company_name&search_field=description&text=python+junior+developer&from=suggest_post
+
 headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:69.0) Gecko/20100101 Firefox/69.0'
 }
