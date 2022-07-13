@@ -41,3 +41,5 @@ for i in range(len(title)):
 for item in news.find({}):
     print(item)
 client.close()
+
+# sudo mongoexport --db news_db -c news --out task4.json
